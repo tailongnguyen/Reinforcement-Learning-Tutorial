@@ -15,7 +15,7 @@ Ví dụ một bài toán RL cơ bản như: một robot tìm cách đi đến m
 - Thời gian là một yếu tố quan trọng, các dữ liệu sample thu được trong quá trình huấn luyện không phải đồng nhất độc lập (identical independent distribution) như thường thấy trong supervised learning.
 
 #### Rewards
-Một reward $R_t$ là một số thực, biểu diễn mức độ tốt xấu của hành động thứ t của agent, hay của hành động của agent tại *timestep* thứ t. Mục tiêu của agent sẽ là tối ưu lượng rewards nhận được trên đường đi của mình (tổng reward lại tất cả timestep)
+Một reward ![r_t](https://latex.codecogs.com/gif.latex?%5Cinline%20%24R_t%24) là một số thực, biểu diễn mức độ tốt xấu của hành động thứ t của agent, hay của hành động của agent tại *timestep* thứ t. Mục tiêu của agent sẽ là tối ưu lượng rewards nhận được trên đường đi của mình (tổng reward lại tất cả timestep)
 
 Có một giả thuyết về rewards:
 > All goals can be described by the maximisation of expected cumulative reward
@@ -24,7 +24,7 @@ tức là mọi mục tiêu cũng có thể được quy về bài toán tối �
 
 #### Sequential Decision Making
 Mục tiêu của agent cũng có thể hiểu là chọn được action phù hợp tại các timestep liên tục, nói cách khác, chọn ra một **chuỗi** các actions sao cho tổng tích lũy rewards là lớn nhất. 
-Quay lại với bài toán trong ví dụ đầu bài viết, tại mỗi thời điểm t, policy phải giúp agent chọn ra action $a_t$, aka đi thẳng, rẽ trái một góc $\alpha$, rẽ phải một góc $\beta$, ... sao cho sau khi thực hiện nó thì nó sẽ chuyển sang một state mới mà **từ đó trở đi** cuộc đời sẽ tươi đẹp hơn, aka dễ dàng chọn ra các action đem lại reward cao. 
+Quay lại với bài toán trong ví dụ đầu bài viết, tại mỗi thời điểm t, policy phải giúp agent chọn ra action ![a_t](https://latex.codecogs.com/gif.latex?%5Cinline%20%24a_t%24), aka đi thẳng, rẽ trái một góc alpha, rẽ phải một góc beta, ... sao cho sau khi thực hiện nó thì nó sẽ chuyển sang một state mới mà **từ đó trở đi** cuộc đời sẽ tươi đẹp hơn, aka dễ dàng chọn ra các action đem lại reward cao. 
 Chính vì thế, có thể rút ra ba điều:
 - Reward có thể bị delay, vì tại mỗi step thì agent đều cố gắng maximize lượng rewards tích lũy trong tương lai, hay còn gọi là accumulate future rewards, nhưng nó lại không được biết nó nhận được giá trị này ngay sau khi nó thực hiện action nó đưa ra.
 - Action mà agent đưa ra trong mỗi step ảnh hưởng tới những quyết định tiếp theo, bởi nó đưa agent sang một trạng thái khác.
@@ -38,28 +38,28 @@ Có hai loại states: environment states và agent states.
 Một ví dụ đơn giản như hình ảnh mà chúng ta đang nhìn thấy chính là internal observation của chúng ta với thế giới xung quanh. Thứ chúng ta nhìn đấy chẩng qua chỉ chứa một lượng thông tin cực kì nhỏ so với trạng thái của thế giới. Chúng ta có thể nhìn thấy một quả bóng nhưng không thể biết bên trong nó đang có hàng nghìn chuyển động, phản ứng của các phân tử.
 
 Sau khi agent thực hiện một chuỗi hành động, ta có thể xây dựng một chuỗi gọi là history (hay trajectory) của agent:
-$H_t = (s_0, a_0, r_0, s_1, a_1, r_1, ..., s_t, a_t, r_t)$
-tức là tại thời điểm $t$, agent đang ở trạng thái $s_t$ và sau khi thực hiện action $a_t$ thì thu được reward tương ứng $r_t$.
+![eq](https://latex.codecogs.com/gif.latex?%5Cinline%20%24H_t%20%3D%20%28s_0%2C%20a_0%2C%20r_0%2C%20s_1%2C%20a_1%2C%20r_1%2C%20...%2C%20s_t%2C%20a_t%2C%20r_t%29%24)
+tức là tại thời điểm t, agent đang ở trạng thái ![s_t](https://latex.codecogs.com/gif.latex?%5Cinline%20%24s_t%24) và sau khi thực hiện action ![a_t](https://latex.codecogs.com/gif.latex?%5Cinline%20%24a_t%24) thì thu được reward tương ứng ![r_t](https://latex.codecogs.com/gif.latex?%5Cinline%20%24r_t%24).
 
-Quá trình chuyển đổi từ state này qua state khác được quyết định bởi environment thông qua một hàm, hay phân bố xác suất P: $s_{t+1} \sim P(H_t)$
+Quá trình chuyển đổi từ state này qua state khác được quyết định bởi environment thông qua một hàm, hay phân bố xác suất P: ![eq](https://latex.codecogs.com/gif.latex?%5Cinline%20%24s_%7Bt&plus;1%7D%20%5Csim%20P%28H_t%29%24)
 
-Một state được gọi là Markov khi nó chỉ phụ thuộc vào state ngay trước đó, aka tương lai sẽ độc lập với quá khứ khi biết hiện tại, aka: $s_{t+1} \sim P(a_t, s_t)$
+Một state được gọi là Markov khi nó chỉ phụ thuộc vào state ngay trước đó, aka tương lai sẽ độc lập với quá khứ khi biết hiện tại, aka: ![eq](https://latex.codecogs.com/gif.latex?%5Cinline%20%24s_%7Bt&plus;1%7D%20%5Csim%20P%28a_t%2C%20s_t%29%24)
 
 Trong những bài toán mà agent states = environment states và có tính Markov tại mọi thời điểm, ta quy về họ bài toán Markov Decision Process. Còn trong những bài toán mà agent states < environment states, hay agent tương tác với một Partially Observable Environments, agent sẽ cần phải tự xây dựng một biểu diễn trạng thái của mình, thường thì việc này sẽ thông qua một thứ gọi là **Model**. Model sẽ được agent dùng để dự đoán sự thay đổi của environment, bao gồm cả state tại bước tiếp theo lẫn reward tại bước hiện tại.
 
 #### Policy
-Như đã nói, policy, kí hiệu là $\pi$, là thứ giúp agent đưa ra action phù hợp khi đã biết state hiện tại. 
+Như đã nói, policy, kí hiệu là ![pi](https://latex.codecogs.com/gif.latex?%5Cinline%20%24%5Cpi%24), là thứ giúp agent đưa ra action phù hợp khi đã biết state hiện tại. 
 Có hai loại policy: 
-- Deterministic (đơn định): $a\,=\, \pi(s)$, tức là một mapping từ state sang action.
-- Stochastic (ngẫu nhiên): $\pi(a,\,s)\,=\, P(A_t = a, S_t = s)$, tức là action sẽ được chọn một cách **ngẫu nhiên có xác suất**
+- Deterministic (đơn định): ![eq](https://latex.codecogs.com/gif.latex?%5Cinline%20%24a%5C%2C%3D%5C%2C%20%5Cpi%28s%29%24), tức là một mapping từ state sang action.
+- Stochastic (ngẫu nhiên): ![eq](https://latex.codecogs.com/gif.latex?%5Cinline%20%24%5Cpi%28a%2C%5C%2Cs%29%5C%2C%3D%5C%2C%20P%28A_t%20%3D%20a%2C%20S_t%20%3D%20s%29%24), tức là action sẽ được chọn một cách **ngẫu nhiên có xác suất**
 
 #### Value Function
 
 Value function (hàm giá trị), là một đại lượng biểu diễn **dự đoán** của tổng tích lũy phần thưởng trong tương lai, và được dùng để đánh giá mức độ tốt/xấu của một state.
 
-$V^t_\pi (s) = E_{\pi}[r_{t+1} + \gamma * r_{t+1} + \gamma ^ 2 * r_{t+1} + \gamma ^ 3 * r_{t+2} +... + r_T | s_t = s]$
+![eq](https://latex.codecogs.com/gif.latex?%5Cinline%20%24V%5Et_%5Cpi%20%28s%29%20%3D%20E_%7B%5Cpi%7D%5Br_%7Bt&plus;1%7D%20&plus;%20%5Cgamma%20*%20r_%7Bt&plus;2%7D%20&plus;%20%5Cgamma%20%5E%202%20*%20r_%7Bt&plus;3%7D%20&plus;%20%5Cgamma%20%5E%203%20*%20r_%7Bt&plus;4%7D%20&plus;...%20&plus;%20%5Cgamma%20%5E%20%7BT-t-1%7D%20*%20r_T%20%7C%20s_t%20%3D%20s%5D%24)
 
-với $\gamma$ được gọi là giá trị chiết khấu (discounted factor), thường sẽ nằm trong khoảng từ 0 đến 1, nhằm mục đích làm giảm sự quan trọng ở những dự đoán xa hơn vì những dự đoán tương lai xa sẽ nhiều khả năng sai hơn. Tại sao phải cần quan tâm đến mức độ sai đúng? Ví dụ tại một step $t$ nào đó agent muốn dùng $V^t_\pi (s)$ để cập nhật policy của mình, nên nhớ giá trị này chỉ là **dự đoán** vì lúc đó agent không thể biết trước được tương lai, việc sai lệch sẽ khiến cho quá trình cập nhật bị sai hướng và làm giảm tốc độ học của agent.
+với ![gamma](https://latex.codecogs.com/gif.latex?%5Cinline%20%24%5Cgamma%24) được gọi là giá trị chiết khấu (discounted factor), thường sẽ nằm trong khoảng từ 0 đến 1, nhằm mục đích làm giảm sự quan trọng ở những dự đoán xa hơn vì những dự đoán tương lai xa sẽ nhiều khả năng sai hơn. Tại sao phải cần quan tâm đến mức độ sai đúng? Ví dụ tại một step t nào đó agent muốn dùng ![eq](https://latex.codecogs.com/gif.latex?%5Cinline%20%24V%5Et_%5Cpi%20%28s%29%24) để cập nhật policy của mình, nên nhớ giá trị này chỉ là **dự đoán** vì lúc đó agent không thể biết trước được tương lai, việc sai lệch sẽ khiến cho quá trình cập nhật bị sai hướng và làm giảm tốc độ học của agent.
 
 Ví dụ:
 
@@ -69,7 +69,7 @@ Ví dụ:
 
 #### Phân loại các RL Agents
 - Valued-based: agent sẽ cố gắng tối ưu value function và từ đó suy ra policy
-- Policy-based: agent sẽ cố gắng xấp xỉ trực tiếp policy của nó, phân bố xác suất $\pi$
+- Policy-based: agent sẽ cố gắng xấp xỉ trực tiếp policy của nó, phân bố xác suất ![eq](https://latex.codecogs.com/gif.latex?%5Cinline%20%24%5Cpi%24)
 - Actor-critic: agent sẽ học phụ thuộc vào cả value function và policy, vừa tối ưu value function và dùng value function để cập nhật policy.
 
 #### Exploration và exploitation
