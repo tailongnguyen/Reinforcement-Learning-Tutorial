@@ -38,7 +38,9 @@ Có hai loại states: environment states và agent states.
 Một ví dụ đơn giản như hình ảnh mà chúng ta đang nhìn thấy chính là internal observation của chúng ta với thế giới xung quanh. Thứ chúng ta nhìn đấy chẩng qua chỉ chứa một lượng thông tin cực kì nhỏ so với trạng thái của thế giới. Chúng ta có thể nhìn thấy một quả bóng nhưng không thể biết bên trong nó đang có hàng nghìn chuyển động, phản ứng của các phân tử.
 
 Sau khi agent thực hiện một chuỗi hành động, ta có thể xây dựng một chuỗi gọi là history (hay trajectory) của agent:
-![eq](https://latex.codecogs.com/gif.latex?%5Cinline%20%24H_t%20%3D%20%28s_0%2C%20a_0%2C%20r_0%2C%20s_1%2C%20a_1%2C%20r_1%2C%20...%2C%20s_t%2C%20a_t%2C%20r_t%29%24)
+
+![gif.latex?H%20%3D%20%28s_0%2C%20a_0%2C%20r_1%2C%20s_1%2C%20a_1%2C%20r_2%2C%20...%2C%20s_T%2C%20a_T%2C%20r_%7BT&plus;1%7D%29](https://latex.codecogs.com/gif.latex?H%20%3D%20%28s_0%2C%20a_0%2C%20r_1%2C%20s_1%2C%20a_1%2C%20r_2%2C%20...%2C%20s_T%2C%20a_T%2C%20r_%7BT&plus;1%7D%29)
+
 tức là tại thời điểm t, agent đang ở trạng thái ![s_t](https://latex.codecogs.com/gif.latex?%5Cinline%20%24s_t%24) và sau khi thực hiện action ![a_t](https://latex.codecogs.com/gif.latex?%5Cinline%20%24a_t%24) thì thu được reward tương ứng ![r_t](https://latex.codecogs.com/gif.latex?%5Cinline%20%24r_t%24).
 
 Quá trình chuyển đổi từ state này qua state khác được quyết định bởi environment thông qua một hàm, hay phân bố xác suất P: ![eq](https://latex.codecogs.com/gif.latex?%5Cinline%20%24s_%7Bt&plus;1%7D%20%5Csim%20P%28H_t%29%24)
