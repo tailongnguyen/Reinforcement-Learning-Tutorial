@@ -9,7 +9,7 @@
 > 
 Một trạng thái ![eq](https://latex.codecogs.com/gif.latex?S_t) được coi là có tính chất Markov nếu:
 
-![eq](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bbmatrix%7D%20P_%7B11%7D%20%26%20...%20%26%20P_%7B1n%7D%5C%5C%20...%20%26%20%26%20%5C%5C%20P_%7Bn1%7D%20%26%20...%20%26%20P_%7Bnn%7D%20%5Cend%7Bbmatrix%7D)
+![eq](https://latex.codecogs.com/gif.latex?P%28S_%7Bt&plus;1%7D%7C%20S_%7Bt%7D%5D%29%20%3D%20P%28S_%7Bt&plus;1%7D%20%7C%20S_1%2C%20S_2%2C%20...%2C%20S_t%29)
 
 tức là trạng thái này *captures* được tất cả các thông tin liên quan từ quá khứ và một khi biết trạng thái này, các trạng thái quá khứ có thể bỏ đi.
 
@@ -18,11 +18,12 @@ Nếu ai đã biết qua về Markov Model thì có lẽ không xa lạ với kh
 
 ![eq](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bbmatrix%7D%20P_11%20%26...%20%26P_1n%20%5C%5C%20...%20%26%20%26%20%5C%5C%20P_n1%26...%20%26P_nn%20%5Cend%7Bbmatrix%7D)
 
-với $P[i][j]$ là xác suất chuyển đổi từ trạng thái $i$ sang trạng thái $j$.
+với P[i][j] là xác suất chuyển đổi từ trạng thái i sang trạng thái j.
 ## Markov process
 Một quy trình Markov (Markov Process) là một quy trình ngẫu nhiên không có bộ nhớ (memoryless random process), tức là một chuỗi các trạng thái có tính Markov ![gif.latex?S_1%2C%20S_2%2C%20...%2C%20S_n](https://latex.codecogs.com/gif.latex?S_1%2C%20S_2%2C%20...%2C%20S_n)
 
 ***Definition***
+
 Một quy trình Markov (hay chuỗi Markov) là một bộ (S, P):
 - S là một tập hữu hạn các trạng thái có tính Markov
 - P là ma trận chuyển đổi trạng thái
@@ -43,13 +44,15 @@ Dễ dàng nhận ra trong tập trạng thái này, Sleep là trạng thái k�
 Một quy trình có phần thưởng Markov (Markov Reward Process) là một chuỗi Markov kèm theo giá trị phần thưởng (obviously :D)
 
 ***Definition***
-Một quy trình phần thưởng Markov là một bộ ![gif.latex?%28S%2C%20P%2C%20R%2C%20%5Cgamma%29](https://latex.codecogs.com/gif.latex?%28S%2C%20P%2C%20R%2C%20%5Cgamma%29):
-- S là một tập hữu hạn các trạng thái có tính Markov
-- P là ma trận chuyển đổi trạng thái và ![gif.latex?P%5Ea_%7Bss%27%7D%20%3D%20P%5BS_%7Bt&plus;1%7D%20%3D%20s%27%20%7C%20S_t%20%3D%20s%5D](https://latex.codecogs.com/gif.latex?P%5Ea_%7Bss%27%7D%20%3D%20P%5BS_%7Bt&plus;1%7D%20%3D%20s%27%20%7C%20S_t%20%3D%20s%5D)
-- R là hàm giá trị phần thưởng (reward function), tức  ![gif.latex?R_t%20%3D%20%5Cmathop%7B%7B%7D%5Cmathbb%7BE%7D%7D%5B%7BR_%7Bt&plus;q%7D%20%7C%20S%20%3D%20s_t%7D%5D](https://latex.codecogs.com/gif.latex?R_t%20%3D%20%5Cmathop%7B%7B%7D%5Cmathbb%7BE%7D%7D%5B%7BR_%7Bt&plus;q%7D%20%7C%20S%20%3D%20s_t%7D%5D)
-- ![gif.latex?%5Cgamma](https://latex.codecogs.com/gif.latex?%5Cgamma) là giá trị chiết khấu (discounted factor) thuộc khoảng [0, 1]
+
+> Một quy trình phần thưởng Markov là một bộ ![gif.latex?%28S%2C%20P%2C%20R%2C%20%5Cgamma%29](https://latex.codecogs.com/gif.latex?%28S%2C%20P%2C%20R%2C%20%5Cgamma%29):
+>- S là một tập hữu hạn các trạng thái có tính Markov
+>- P là ma trận chuyển đổi trạng thái và ![eq](https://latex.codecogs.com/gif.latex?P_%7Bss%27%7D%20%3D%20P%5BS_%7Bt&plus;1%7D%20%3D%20s%27%7CS_t%20%3D%20s%5D)
+>- R là hàm giá trị phần thưởng (reward function), tức  ![eq](https://latex.codecogs.com/gif.latex?R_%7Bt&plus;1%7D%28s%29%20%3D%20E%5BR_%7Bt&plus;1%7D%20%7C%20S_t%20%3D%20s%5D)
+>- ![gif.latex?%5Cgamma](https://latex.codecogs.com/gif.latex?%5Cgamma) là giá trị chiết khấu (discounted factor) thuộc khoảng [0, 1]
 
 Quay trở lại với ví dụ trước:
+
 ![studentmarkovchainreward.png](images/studentmarkovchainreward.png)
 
 Có thể thấy là tên này rất thích đi Pub và ngủ mà vẫn được qua môn :D 
@@ -69,6 +72,7 @@ Lí do tồn tại của discounted value là:
 
 ## Value function
 ***Definition***
+
 Hàm giá trị (Value Function) v(s) của một MRP là giá trị kì vọng của return từ trạng thái s,
 
 ![gif.latex?V%28s%29%20%3D%20%5Cmathop%7B%7B%7D%5Cmathbb%7BE%7D%7D%5BG_t%20%7C%20S%20%3D%20s%5D](https://latex.codecogs.com/gif.latex?V%28s%29%20%3D%20%5Cmathop%7B%7B%7D%5Cmathbb%7BE%7D%7D%5BG_t%20%7C%20S%20%3D%20s%5D)
@@ -88,8 +92,8 @@ Câu hỏi đặt ra là làm sao từ đồ thị ban đầu và chưa có epis
 ## Bellman equantion trong MRPs
 
 Một giá trị value của value function có thể được phân giải thành 2 phần:
-- phần thưởng tức thời $R_{t+1}$
-- value function của state tiếp theo có chiết khấu $\gamma * V(S_{t+1})$
+- phần thưởng tức thời ![eq](https://latex.codecogs.com/gif.latex?R_%7Bt&plus;1%7D)
+- value function của state tiếp theo có chiết khấu ![eq](https://latex.codecogs.com/gif.latex?%5Cgamma%20*%20V%28S_%7Bt&plus;1%7D%29)
 
 ![gif.latex?v%28s%29%20%5C%5C%20%3D%20E%5BG_t%20%7C%20S_t%20%3D%20s%5D%20%5C%5C%20%3D%20E%5BR_%7Bt&plus;1%7D%20&plus;%20%5Cgamma%20R_%7Bt&plus;2%7D%20&plus;%20%5Cgamma%5E2R_%7Bt&plus;3%7D%20&plus;%20...%20%7C%20S_t%20%3D%20s%5D%5C%5C%20%3D%20E%5BR_%7Bt&plus;1%7D%20&plus;%20%5Cgamma%20%28R_%7Bt&plus;2%7D%20&plus;%20%5Cgamma%20R_%7Bt&plus;3%7D%20&plus;%20...%29%20%7C%20S_t%20%3D%20s%5D%5C%5C%20%3D%20E%5BR_%7Bt&plus;1%7D%20&plus;%20%5Cgamma%20G_%7Bt&plus;1%7D%20%7C%20S_t%20%3D%20s%5D%5C%5C%20%3D%20E%5BR_%7Bt&plus;1%7D%20&plus;%20%5Cgamma%20v%28S_%7Bt&plus;1%7D%29%20%7C%20S_t%20%3D%20s%5D](https://latex.codecogs.com/gif.latex?v%28s%29%20%5C%5C%20%3D%20E%5BG_t%20%7C%20S_t%20%3D%20s%5D%20%5C%5C%20%3D%20E%5BR_%7Bt&plus;1%7D%20&plus;%20%5Cgamma%20R_%7Bt&plus;2%7D%20&plus;%20%5Cgamma%5E2R_%7Bt&plus;3%7D%20&plus;%20...%20%7C%20S_t%20%3D%20s%5D%5C%5C%20%3D%20E%5BR_%7Bt&plus;1%7D%20&plus;%20%5Cgamma%20%28R_%7Bt&plus;2%7D%20&plus;%20%5Cgamma%20R_%7Bt&plus;3%7D%20&plus;%20...%29%20%7C%20S_t%20%3D%20s%5D%5C%5C%20%3D%20E%5BR_%7Bt&plus;1%7D%20&plus;%20%5Cgamma%20G_%7Bt&plus;1%7D%20%7C%20S_t%20%3D%20s%5D%5C%5C%20%3D%20E%5BR_%7Bt&plus;1%7D%20&plus;%20%5Cgamma%20v%28S_%7Bt&plus;1%7D%29%20%7C%20S_t%20%3D%20s%5D)
 
@@ -116,7 +120,7 @@ Một MDP được biểu diễn bằng một tuple ![gif.latex?%3CS%2C%20A%2C%2
 - S là một tập hữu hạn các trạng thái có tính Markov
 - P là ma trận chuyển đổi trạng thái và ![gif.latex?P%5Ea_%7Bss%27%7D%20%3D%20P%5BS_%7Bt&plus;1%7D%20%3D%20s%27%20%7C%20S_t%20%3D%20s%2C%20A_t%20%3D%20a%5D](https://latex.codecogs.com/gif.latex?P%5Ea_%7Bss%27%7D%20%3D%20P%5BS_%7Bt&plus;1%7D%20%3D%20s%27%20%7C%20S_t%20%3D%20s%2C%20A_t%20%3D%20a%5D)
 - A là tập hữu hạn các hành động
-- R là hàm giá trị phần thưởng (reward function), tức  ![gif.latex?R_t%20%3D%20%5Cmathop%7B%7B%7D%5Cmathbb%7BE%7D%7D%5B%7BR_%7Bt&plus;q%7D%20%7C%20S%20%3D%20s_t%7D%5D](https://latex.codecogs.com/gif.latex?R_t%20%3D%20%5Cmathop%7B%7B%7D%5Cmathbb%7BE%7D%7D%5B%7BR_%7Bt&plus;q%7D%20%7C%20S%20%3D%20s_t%7D%5D)
+- R là hàm giá trị phần thưởng (reward function), tức  ![eq](https://latex.codecogs.com/gif.latex?R_%7Bt&plus;1%7D%28s%29%20%3D%20E%5BR_%7Bt&plus;1%7D%20%7C%20S_t%20%3D%20s%5D)
 - ![gif.latex?%5Cgamma](https://latex.codecogs.com/gif.latex?%5Cgamma) là giá trị chiết khấu (discounted factor) thuộc khoảng [0, 1]
 
 ![mdp.png](images/mdp.png)
@@ -128,7 +132,7 @@ Policy ![gif.latex?%5Cpi](https://latex.codecogs.com/gif.latex?%5Cpi) của mộ
 ![gif.latex?%5Clarge%20%5Cpi%28a%7Cs%29%20%3D%20P%5BA_t%20%3D%20a%20%7C%20S_t%20%3D%20a%5D](https://latex.codecogs.com/gif.latex?%5Clarge%20%5Cpi%28a%7Cs%29%20%3D%20P%5BA_t%20%3D%20a%20%7C%20S_t%20%3D%20a%5D)
 
 - Cho một MDP ![gif.latex?M%20%3D%20%3CS%2C%20A%2C%20P%2C%20R%2C%20%5Cgamma%3E](https://latex.codecogs.com/gif.latex?M%20%3D%20%3CS%2C%20A%2C%20P%2C%20R%2C%20%5Cgamma%3E) và một policy ![gif.latex?%5Cpi](https://latex.codecogs.com/gif.latex?%5Cpi)
-- Chuỗi các state vầ reward ![gif.latex?s_1%2C%20r_1%2C%20s_2%2C%20r_2%2C%20...](https://latex.codecogs.com/gif.latex?s_1%2C%20r_1%2C%20s_2%2C%20r_2%2C%20...) là một MRP ![gif.latex?%3CS%2C%20P%5E%5Cpi%2C%20R%5E%5Cpi%2C%20%5Cgamma%3E](https://latex.codecogs.com/gif.latex?%3CS%2C%20P%5E%5Cpi%2C%20R%5E%5Cpi%2C%20%5Cgamma%3E) với
+- Chuỗi các state vầ reward ![eq](https://latex.codecogs.com/gif.latex?s_1%2C%20r_2%2C%20s_2%2C%20r_3%2C%20...) là một MRP ![gif.latex?%3CS%2C%20P%5E%5Cpi%2C%20R%5E%5Cpi%2C%20%5Cgamma%3E](https://latex.codecogs.com/gif.latex?%3CS%2C%20P%5E%5Cpi%2C%20R%5E%5Cpi%2C%20%5Cgamma%3E) với
  
 ![gif.latex?%5Clarge%20P%5E%5Cpi%28s%2C%20s%27%29%20%3D%20%5Csum%20_%7Ba%5Cepsilon%20A%7D%20%5Cpi%28a%7Cs%29%20P%5Ea_%7Bss%27%7D](https://latex.codecogs.com/gif.latex?%5Clarge%20P%5E%5Cpi%28s%2C%20s%27%29%20%3D%20%5Csum%20_%7Ba%5Cepsilon%20A%7D%20%5Cpi%28a%7Cs%29%20P%5Ea_%7Bss%27%7D)
 
